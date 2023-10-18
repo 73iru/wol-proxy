@@ -1,0 +1,12 @@
+version: '3.5'
+
+services:
+  wol:
+    image: wol-proxy:latest
+    ports:
+      - "8089:8089" 
+      - "9:9" 
+    environment:
+      PROXY_CONFIG: 123
+                
+  

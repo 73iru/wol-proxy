@@ -1,4 +1,4 @@
-FROM golang:1.17-alpine
+FROM golang:1.20-alpine
 
 WORKDIR /app
 
@@ -7,8 +7,9 @@ RUN go mod download
 
 COPY main.go /app/
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /wol-proxy
+RUN CGO_ENABLED=0  GOOS=linux go build main.go
 
 EXPOSE 8089
+EXPOSE 9
 
-CMD ["./wol-proxy"]
+CMD ["./main"]
