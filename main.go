@@ -96,11 +96,28 @@ const (
 
 func main() {
 	r := gin.Default()
-	r.GET("/*path", get)
-	r.POST("/*path", post)
+	r.GET("/wake", wake)
+	//r.GET("/*path", get)
+	//r.POST("/*path", post)
 	if err := r.Run(Addr); err != nil {
 		log.Printf("Error: %v", err)
 	}
+}
+
+func wake(c *gin.Context) {
+
+	err := start()
+	if err != nil {
+		log.Fatal(err)
+
+		c.String(500, " error")
+	}
+
+	targetURL := "http://192.168.0.106:2342"
+
+	// Use the http.Redirect function to send an HTTP 302 (Found) status code
+	http.Redirect(c.Writer, c.Request, targetURL, http.StatusFound)
+
 }
 
 func start() error {
